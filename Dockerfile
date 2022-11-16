@@ -12,8 +12,8 @@ COPY ./api.py ./config.py ./
 COPY ./src ./src
 COPY ./weights ./weights
 
-FROM python:3.9
-COPY --from=0 /build/target /illustor3
+COPY /build/target /illustor3
+RUN rm -rf /build
 
 WORKDIR /illustor3
 ENV PYTHONPATH=${WORKDIR}:${WORKDIR}/src:$PYTHONPATH
