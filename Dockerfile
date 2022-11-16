@@ -17,4 +17,5 @@ RUN rm -rf /build
 
 WORKDIR /illustor3
 ENV PYTHONPATH=${WORKDIR}:${WORKDIR}/src:$PYTHONPATH
+RUN echo $PYTHONPATH
 CMD ["uvicorn", "api:mux"]
