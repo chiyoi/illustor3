@@ -1,6 +1,7 @@
 from model import Model
 from config import Config
 import os.path as path
+import os
 
 try:
     network = Config["network"]
@@ -11,9 +12,12 @@ except KeyError as err:
 m = Model()
 m.load_network(network)
 
-seed = 3939
-img = m.generate(seed)
+seed = 39390
+img = m.generate(seed, 0.4, "random")
 
-fp = path.join("output", "seed{}.png".format(seed))
+out_dir = "output"
+os.makedirs(out_dir)
+
+fp = path.join(out_dir, "seed{}.png".format(seed))
 print("saving example {}".format(fp))
 img.save(fp)
