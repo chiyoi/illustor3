@@ -12,7 +12,7 @@ COPY ./api.py ./config.py ./
 COPY ./src ./src
 COPY ./weights ./weights
 
-COPY /build/target /illustor3
+COPY --from=0 /build/target /illustor3
 RUN rm -rf /build
 
 WORKDIR /illustor3
