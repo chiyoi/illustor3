@@ -1,3 +1,4 @@
+import random
 from model import Model
 from config import Config
 import os.path as path
@@ -12,11 +13,14 @@ except KeyError as err:
 m = Model()
 m.load_network(network)
 
-seed = 39390
-img = m.generate(seed, 0.4, "random")
+seed = int(random.random()*(2**32-1))
+
+img = m.generate_img(seed, 0.4)
 
 out_dir = "output"
-os.makedirs(out_dir)
+if not path.exists(out_dir):
+    os.makedirs(out_dir)
+assert path.isdir(out_dir)
 
 fp = path.join(out_dir, "seed{}.png".format(seed))
 print("saving example {}".format(fp))
