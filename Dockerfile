@@ -18,5 +18,4 @@ RUN cp -r /build/target $root
 RUN rm -rf /build
 
 ENV PYTHONPATH=$root:$root/src:$PYTHONPATH
-RUN echo $PYTHONPATH
 CMD ["uvicorn", "api:mux"]
