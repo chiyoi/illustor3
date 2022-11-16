@@ -18,4 +18,8 @@ RUN rm -rf /build
 WORKDIR /illustor3
 ARG root=/illustor3
 ENV PYTHONPATH=$root:$root/src:$PYTHONPATH
-CMD ["uvicorn", "api:mux"]
+
+ENV PORT 80
+EXPOSE 80
+
+CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80", "api:mux"]
