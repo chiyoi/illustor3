@@ -12,10 +12,11 @@ COPY ./api.py ./config.py ./
 COPY ./src ./src
 COPY ./weights ./weights
 
-RUN cp -r /build/target /illustor3
+WORKDIR /illustor3
+ARG root=/illustor3
+RUN cp -r /build/target $root
 RUN rm -rf /build
 
-WORKDIR /illustor3
-ENV PYTHONPATH=${WORKDIR}:${WORKDIR}/src:$PYTHONPATH
+ENV PYTHONPATH=$root:$root/src:$PYTHONPATH
 RUN echo $PYTHONPATH
 CMD ["uvicorn", "api:mux"]
