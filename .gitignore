@@ -1,4 +1,5 @@
 target
 .vscode
-_*
+_example
+__pycache__
 weights
