@@ -1,5 +1,3 @@
 #!/bin/zsh
-root=$(readlink -f $(dirname $0)/..)
-cd $root || return $?
-
+cd $(readlink -f $(dirname $0))/.. || return
 docker build --tag chiyoi/illustor3 .

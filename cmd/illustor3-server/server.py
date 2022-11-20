@@ -3,7 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from config import Config
-from src.model import NoiseMode, Model
+from model import NoiseMode, Model
 import io
 import logging
 
@@ -11,6 +11,8 @@ mux = FastAPI(docs_url=None, redoc_url=None)
 m = Model()
 
 log = logging.getLogger("uvicorn")
+
+
 @mux.on_event("startup")
 async def startup():
     log.info("illustor3 starting!")
@@ -23,7 +25,6 @@ async def startup():
 
     log.info("loading network {}".format(network))
     m.load_network(network)
-
 
 
 @mux.get("/")

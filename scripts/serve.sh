@@ -1,13 +1,10 @@
 #!/bin/zsh
-root=$(readlink -f $(dirname $0)/..)
-cd $root || return $?
+cd $(readlink -f $(dirname $0))/.. || return
+source ./.venv/bin/activate
+scr build-test || return
+cd target || return
 
-./scripts/build.sh || return $?
+dir=$(readlink -f .)
+export PYTHONPATH=$dir:$dir/pkg:$PYTHONPATH
 
-source $root/.venv/bin/activate
-
-target=$root/target
-export PYTHONPATH=$target:$target/src:$PYTHONPATH
-cd $target || return $?
-
-uvicorn api:mux
+uvicorn illustor3-server.server:mux

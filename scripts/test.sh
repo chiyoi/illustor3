@@ -1,18 +1,22 @@
 #!/bin/zsh
-if test $# -ne 1; then
-    echo "usage: test.sh \033[4mtest-file\033[0m"
+usage='usage: test <pkg> <name>
+    run the test like "python <pkg>/<name>_test.py
+returns:
+    0 - ok
+    1 - usage error'
+
+if test $# -ne 2; then
+    echo $usage
     return 1
 fi
-root=$(readlink -f $(dirname $0)/..)
-cd $root || return $?
 
-./script/build.sh || return $?
+cd $(readlink -f $(dirname $0))/.. || return
+source ./.venv/bin/activate
+scr build-test || return
+cd target || return
 
-source $root/.venv/bin/activate
+dir=$(readlink -f .)
 
-test_file=$(readlink -f $1)
-target=$root/target
-export PYTHONPATH=$target:$target/src:$PYTHONPATH
-cd $target || return $?
+export PYTHONPATH=$dir/pkg:$dir:$PYTHONPATH
 
-python $test_file
+python "$1/${2}_test.py"

@@ -8,18 +8,17 @@ RUN pip install --no-cache-dir \
     -r ./requirements.txt
 
 WORKDIR /build/target
-COPY ./api.py ./config.py ./
-COPY ./src ./src
+COPY ./config.py ./pkg ./
 COPY ./weights ./weights
+
+COPY ./cmd/illustor3-server ./
 
 RUN cp -r /build/target /illustor3
 RUN rm -rf /build
 
 WORKDIR /illustor3
-ARG root=/illustor3
-ENV PYTHONPATH=$root:$root/src:$PYTHONPATH
-
 ENV PORT 80
 EXPOSE 80
 
-CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80", "api:mux"]
+ENV PYTHONPATH=/illustor3:/illustor3/pkg:$PYTHONPATH
+CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80", "illustor3-server.server:mux"]

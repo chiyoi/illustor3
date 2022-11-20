@@ -11,10 +11,11 @@ except KeyError as err:
     exit(1)
 
 m = Model()
+print("loading network: {}".format(network))
 m.load_network(network)
 
 seed = int(random.random()*(2**32-1))
-
+print("generating image for seed {}".format(seed))
 img = m.generate_img(seed, 0.4)
 
 out_dir = "output"
