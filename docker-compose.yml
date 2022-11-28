@@ -1,0 +1,11 @@
+name: illustor3
+
+services:
+  illustor3:
+    build: .
+    image: chiyoi/illustor3
+    container_name: illustor3
+    hostname: illustor3
+    ports:
+      - 12273:80
+    # restart: unless-stopped
