@@ -1,4 +1,3 @@
-#!/bin/zsh
 usage='usage: test <pkg> <name>
     run the test like "python <pkg>/<name>_test.py
 returns:
@@ -17,6 +16,6 @@ cd target || return
 
 dir=$(readlink -f .)
 
-export PYTHONPATH=$dir/pkg:$dir:$PYTHONPATH
+export PYTHONPATH=$dir:$dir/internal:$PYTHONPATH
 
 python "$1/${2}_test.py"
