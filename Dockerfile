@@ -8,17 +8,17 @@ RUN pip install --no-cache-dir \
     -r ./requirements.txt
 
 WORKDIR /build/target
-COPY ./config.py ./internal ./
 COPY ./weights ./weights
+COPY ./config.py ./
+COPY ./internal ./internal
 
 COPY ./cmd/server ./server
 
+WORKDIR /
 RUN cp -r /build/target /illustor3
 RUN rm -rf /build
 
 WORKDIR /illustor3
-ENV PORT 80
 EXPOSE 80
-
-ENV PYTHONPATH=/illustor3:/illustor3/internal:$PYTHONPATH
+ENV PYTHONPATH=/illustor3:/illustor3/internal:/illustor3/internal/stylegan3:$PYTHONPATH
 CMD ["uvicorn", "--host", "0.0.0.0", "--port", "80", "server:mux"]

@@ -16,6 +16,6 @@ cd target || return
 
 dir=$(readlink -f .)
 
-export PYTHONPATH=$dir:$dir/internal:$PYTHONPATH
+export PYTHONPATH=$dir:$dir/internal:$dir/internal/stylegan3:$PYTHONPATH
 
 python "$1/${2}_test.py"
