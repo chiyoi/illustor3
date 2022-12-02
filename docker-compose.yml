@@ -6,6 +6,11 @@ services:
     image: chiyoi/illustor3
     container_name: illustor3
     hostname: illustor3
+    networks:
+      - illustor3_network
     ports:
       - 12273:80
-    # restart: unless-stopped
+
+networks:
+  illustor3_network:
+    name: illustor3_network
